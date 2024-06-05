@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
+import allure
 
 
 txt_username_locator = (By.XPATH, "//input[@type='text']")
@@ -21,25 +22,31 @@ class LoginPage(BasePage):
         super().__init__(browser)
 
     def open(self):
-        self.browser.get(url)
+        with allure.step(f'Open page:{url}'):
+            self.browser.get(url)
 
     def enter_username(self, username):
-        self.enter_text(username,txt_username_locator)
+        with allure.step(f'Enter user name :{username}'):
+            self.enter_text(username,txt_username_locator)
 
     def enter_password(self, password):
-        self.enter_text(password, txt_password_locator)
+        with allure.step(f'Enter password :{password}'):
+            self.enter_text(password, txt_password_locator)
 
-    def button(self):
+    def button_submit(self):
         return self.find(btn_submit_locator)
 
     def click_username_field(self):
-        return self.click(txt_username_locator)
+        with allure.step(f'Click in the user name field'):
+            return self.click(txt_username_locator)
 
-    def login_button_click(self):
-        return self.find(btn_submit_locator).click()
+    def submit_button_click(self):
+        with allure.step(f'Click on the submit button'):
+            return self.find(btn_submit_locator).click()
 
-    def login_button_is_displayed(self):
-        return self.button().is_displayed()
+    def submit_button_is_displayed(self):
+        with allure.step(f'Check visibility submit button'):
+            return self.button_submit().is_displayed()
 
     def wait_error_line(self):
         try:
