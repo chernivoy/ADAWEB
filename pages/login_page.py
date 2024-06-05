@@ -34,6 +34,7 @@ class LoginPage(BasePage):
 
     def click_username_field(self):
         return self.click(txt_username_locator)
+
     def login_button_click(self):
         return self.find(btn_submit_locator).click()
 

@@ -4,15 +4,26 @@ from selenium import webdriver
 from time import sleep
 
 USER_NAME = 'Anna'
-WRONG_USER_NAME = 'Anna1'
+INVALID_USER_NAME = 'Anna1'
 PASSWORD = '12345'
-WRONG_PASSWORD = '12346'
+INVALID_PASSWORD = '12346'
 
-def test_login_with_wrong_user_name(browser):
+
+def test_login_with_invalid_user_name(browser):
     login_page = LoginPage(browser)
     login_page.open()
-    login_page.enter_username(WRONG_USER_NAME)
+    login_page.enter_username(INVALID_USER_NAME)
     login_page.enter_password(PASSWORD)
+    login_page.login_button_click()
+    login_page.error_message()
+
+
+def test_login_with_invalid_password(browser):
+    login_page = LoginPage(browser)
+    login_page.open()
+    login_page.enter_username(USER_NAME)
+    login_page.enter_password(INVALID_PASSWORD)
+    login_page.click_username_field()
     login_page.login_button_click()
     login_page.error_message()
 
