@@ -27,7 +27,7 @@ class LoginPage(BasePage):
 
     def enter_username(self, username):
         with allure.step(f'Enter user name :{username}'):
-            self.enter_text(username,txt_username_locator)
+            self.enter_text(username, txt_username_locator)
 
     def enter_password(self, password):
         with allure.step(f'Enter password :{password}'):
@@ -61,6 +61,9 @@ class LoginPage(BasePage):
         finally:
             self.browser.quit()
 
+    def check_error_line_empty_user_name2(self):
+        return self.element_is_visible(empty_user_name_error_line_locator)
+
     def check_error_line_empty_user_name(self):
         try:
             locator = self.find(empty_user_name_error_line_locator)
@@ -91,6 +94,8 @@ class LoginPage(BasePage):
 
         except NoSuchElementException:
             print("Всплывающая подсказка не найдена.")
+
+
 
 
 

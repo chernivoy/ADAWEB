@@ -14,14 +14,10 @@ INVALID_PASSWORD = '12346'
 @allure.story('Check error message about invalid user name / password')
 def test_login_with_invalid_user_name(browser):
     login_page = LoginPage(browser)
-    with allure.step('Open the page'):
-        login_page.open()
-    with allure.step(f'Enter invalid user name {INVALID_USER_NAME}'):
-        login_page.enter_username(INVALID_USER_NAME)
-    with allure.step(f'Enter password {PASSWORD}'):
-        login_page.enter_password(PASSWORD)
-    with allure.step('Click submit button'):
-        login_page.submit_button_click()
+    login_page.open()
+    login_page.enter_username(INVALID_USER_NAME)
+    login_page.enter_password(PASSWORD)
+    login_page.submit_button_click()
     with allure.step('Check error message about invalid user name'):
         login_page.error_message()
 
@@ -35,7 +31,8 @@ def test_login_with_invalid_password(browser):
     login_page.enter_password(INVALID_PASSWORD)
     login_page.click_username_field()
     login_page.submit_button_click()
-    login_page.error_message()
+    with allure.step('Check error message about invalid password'):
+        login_page.error_message()
 
 
 @allure.feature('Login')
@@ -46,7 +43,10 @@ def test_login_empty_user_name(browser):
     login_page.enter_username("")
     login_page.enter_password(PASSWORD)
     login_page.submit_button_click()
-    login_page.check_error_line_empty_user_name()
+    with allure.step(f'Check error label about empty user name: {login_page.check_error_line_empty_user_name2().text}'):
+        assert 'Die Eingabe eines Benutzernamens erforderlich' in login_page.check_error_line_empty_user_name2().text
+        print(f'TEST TEXT  = {login_page.check_error_line_empty_user_name2().text}')
+
 
 
 @allure.feature('Login')
@@ -57,7 +57,8 @@ def test_login_empty_password(browser):
     login_page.enter_username(USER_NAME)
     login_page.enter_password("")
     login_page.submit_button_click()
-    login_page.check_error_line_empty_password()
+    with allure.step('Check error label about empty password'):
+        login_page.check_error_line_empty_password()
 
 
 @allure.feature('Login')
@@ -68,8 +69,9 @@ def test_login_empty_user_and_password(browser):
     login_page.enter_username("")
     login_page.enter_password("")
     login_page.submit_button_click()
-    login_page.check_error_line_empty_user_name()
-    login_page.check_error_line_empty_password()
+    with allure.step('Check error label about empty user name and password'):
+        login_page.check_error_line_empty_user_name()
+        login_page.check_error_line_empty_password()
 
 
 @allure.feature('Login')
