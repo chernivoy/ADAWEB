@@ -11,10 +11,16 @@ txt_password_locator = (By.XPATH, "//input[@type='password']")
 btn_submit_locator = (By.XPATH, "//span[@class='dx-button-text']")
 url = 'http://192.168.102.120:8080/login?returnUrl=%2F'
 
-empty_user_name_error_line_locator = (By.XPATH, "//div[@class='dx-item-content dx-validationsummary-item-content'][contains(text(), 'Die Eingabe eines Benutzernamens erforderlich')]")
-empty_password_error_line_locator = (By.XPATH,"//div[@class='dx-overlay-content dx-invalid-message-content'][contains(text(), 'Die Eingabe eines Passwortes erforderlich')]")
+# сообщение об ошибке
+wrong_user_name_or_password_message_locator = (By.XPATH, "//div[contains(text(),'Stellen Sie sicher, dass Benutzername und Passwort korrekt angegeben wurden')]")
 
-wrong_user_name_message_locator = (By.XPATH, "//div[contains(text(),'Stellen Sie sicher, dass Benutzername und Passwort korrekt angegeben wurden')]")
+# красная подсказка в текстовых полях
+red_line_need_enter_user_name = (By.XPATH, "//div[@class='dx-overlay-content dx-invalid-message-content'][contains(text(), 'Die Eingabe eines Benutzernamens erforderlich')]")
+red_line_need_enter_password = (By.XPATH, "//div[@class='dx-overlay-content dx-invalid-message-content'][contains(text(), 'Die Eingabe eines Passwortes erforderlich')]")
+
+# надпись для текстовых полей под кнопкой submit
+empty_user_name_error_label_locator = (By.XPATH, "//div[@class='dx-item-content dx-validationsummary-item-content'][contains(text(), 'Die Eingabe eines Benutzernamens erforderlich')]")
+empty_password_error_label_locator = (By.XPATH, "//div[@class='dx-item-content dx-validationsummary-item-content'][contains(text(), 'Die Eingabe eines Passwortes erforderlich')]")
 
 
 class LoginPage(BasePage):
@@ -36,9 +42,13 @@ class LoginPage(BasePage):
     def button_submit(self):
         return self.find(btn_submit_locator)
 
-    def click_username_field(self):
+    def username_field_click(self):
         with allure.step(f'Click in the user name field'):
             return self.click(txt_username_locator)
+
+    def password_field_click(self):
+        with allure.step(f'Click in the password field'):
+            return self.click(txt_password_locator)
 
     def submit_button_click(self):
         with allure.step(f'Click on the submit button'):
@@ -61,10 +71,13 @@ class LoginPage(BasePage):
         finally:
             self.browser.quit()
 
-    def check_error_line_empty_user_name2(self):
-        return self.element_is_visible(empty_user_name_error_line_locator)
+    def check_error_label_empty_user_name(self):
+        return self.element_is_visible(empty_user_name_error_label_locator)
 
-    def check_error_line_empty_user_name(self):
+    def check_error_label_empty_password(self):
+        return self.element_is_visible(empty_password_error_label_locator)
+
+    def check_error_line_empty_user_name2(self):
         try:
             locator = self.find(empty_user_name_error_line_locator)
             print(f' Info tooltip was found "{empty_user_name_error_line_locator}"')
@@ -73,18 +86,20 @@ class LoginPage(BasePage):
             # Обработка исключения
             print(f"Произошла ошибка: {e}")
 
-    def check_error_line_empty_password(self):
-        try:
-            locator = self.find(empty_password_error_line_locator)
-            print(f' Info tooltip was found {empty_password_error_line_locator}')
-            return locator
-        except Exception as e:
-            # Обработка исключения
-            print(f"Произошла ошибка: {e}")
+    def check_error_message(self):
+        return self.element_is_visible(wrong_user_name_or_password_message_locator)
+
+        # try:
+        #     locator = self.find(empty_password_error_line_locator)
+        #     print(f' Info tooltip was found {empty_password_error_line_locator}')
+        #     return locator
+        # except Exception as e:
+        #     # Обработка исключения
+        #     print(f"Произошла ошибка: {e}")
 
     def error_message(self):
         try:
-            tooltip = WebDriverWait(self.browser, 3).until(EC.visibility_of_element_located(wrong_user_name_message_locator))
+            tooltip = WebDriverWait(self.browser, 3).until(EC.visibility_of_element_located(wrong_user_name_or_password_message_locator))
             if tooltip.text:
                 print(f'\n Info line was found" {tooltip.text}"')
             else:
@@ -95,8 +110,11 @@ class LoginPage(BasePage):
         except NoSuchElementException:
             print("Всплывающая подсказка не найдена.")
 
+    def red_line_user_name(self):
+        return self.element_is_visible(red_line_need_enter_user_name)
 
-
+    def red_line_password(self):
+        return self.element_is_visible(red_line_need_enter_password)
 
 
 
