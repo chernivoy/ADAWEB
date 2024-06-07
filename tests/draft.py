@@ -9,40 +9,39 @@ PASSWORD = '12345'
 WRONG_PASSWORD = '12346'
 
 
-def test_check_messages_with_wrong_data_for_authorization(browser):
-    # check login with wrong user_name
-    login_page = LoginPage(browser)
-    login_page.open()
-    login_page.enter_username(WRONG_USER_NAME)
-    login_page.enter_password(PASSWORD)
-    login_page.login_button_click()
-    login_page.error_message()
+# def error_message(self):
+#     try:
+#         tooltip = WebDriverWait(self.browser, 3).until(
+#             EC.visibility_of_element_located(wrong_user_name_or_password_message_locator))
+#         if tooltip.text:
+#             print(f'\n Info line was found" {tooltip.text}"')
+#         else:
+#             print("Всплывающая подсказка появилась, но текста нет.")
+#     except TimeoutException:
+#         print("Всплывающая подсказка не появилась вовремя.")
+#
+#     except NoSuchElementException:
+#         print("Всплывающая подсказка не найдена.")
 
-    # check login with wrong password
-    login_page.enter_username(USER_NAME)
-    login_page.enter_password(WRONG_PASSWORD)
-    login_page.click_username_field()
-    login_page.login_button_click()
-    login_page.error_message()
+#
+# def check_error_line_empty_user_name2(self):
+#     try:
+#         locator = self.find(empty_user_name_error_line_locator)
+#         print(f' Info tooltip was found "{empty_user_name_error_line_locator}"')
+#         return locator
+#     except Exception as e:
+#         # Обработка исключения
+#         print(f"Произошла ошибка: {e}")
 
-    # check login with empty user_name
-    login_page.enter_username("")
-    login_page.enter_password(PASSWORD)
-    login_page.click_username_field()
-    login_page.login_button_click()
-    login_page.check_error_line_empty_user_name()
-
-    # check login with empty password
-    login_page.enter_username(USER_NAME)
-    login_page.enter_password("")
-    login_page.click_username_field()
-    login_page.login_button_click()
-    login_page.check_error_line_empty_password()
-
-    # check login with empty user_name and password
-    login_page.enter_username("")
-    login_page.enter_password("")
-    login_page.click_username_field()
-    login_page.login_button_click()
-    login_page.check_error_line_empty_user_name()
-    login_page.check_error_line_empty_password()
+def wait_error_line(self):
+    try:
+        # Явное ожидание появления всплывающей подсказки
+        tooltip = WebDriverWait(self.browser, 3).until(
+            EC.visibility_of_element_located(empty_password_error_line_locator)
+        )
+        # Работа с всплывающей подсказкой
+        print("Всплывающая подсказка появилась: ", tooltip.text)
+    except Exception as e:
+        print("Всплывающая подсказка не появилась: ", e)
+    finally:
+        self.browser.quit()

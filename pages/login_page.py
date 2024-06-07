@@ -58,57 +58,14 @@ class LoginPage(BasePage):
         with allure.step(f'Check visibility submit button'):
             return self.button_submit().is_displayed()
 
-    def wait_error_line(self):
-        try:
-            # Явное ожидание появления всплывающей подсказки
-            tooltip = WebDriverWait(self.browser, 3).until(
-                EC.visibility_of_element_located(empty_password_error_line_locator)
-            )
-            # Работа с всплывающей подсказкой
-            print("Всплывающая подсказка появилась: ", tooltip.text)
-        except Exception as e:
-            print("Всплывающая подсказка не появилась: ", e)
-        finally:
-            self.browser.quit()
-
     def check_error_label_empty_user_name(self):
         return self.element_is_visible(empty_user_name_error_label_locator)
 
     def check_error_label_empty_password(self):
         return self.element_is_visible(empty_password_error_label_locator)
 
-    def check_error_line_empty_user_name2(self):
-        try:
-            locator = self.find(empty_user_name_error_line_locator)
-            print(f' Info tooltip was found "{empty_user_name_error_line_locator}"')
-            return locator
-        except Exception as e:
-            # Обработка исключения
-            print(f"Произошла ошибка: {e}")
-
     def check_error_message(self):
         return self.element_is_visible(wrong_user_name_or_password_message_locator)
-
-        # try:
-        #     locator = self.find(empty_password_error_line_locator)
-        #     print(f' Info tooltip was found {empty_password_error_line_locator}')
-        #     return locator
-        # except Exception as e:
-        #     # Обработка исключения
-        #     print(f"Произошла ошибка: {e}")
-
-    def error_message(self):
-        try:
-            tooltip = WebDriverWait(self.browser, 3).until(EC.visibility_of_element_located(wrong_user_name_or_password_message_locator))
-            if tooltip.text:
-                print(f'\n Info line was found" {tooltip.text}"')
-            else:
-                print("Всплывающая подсказка появилась, но текста нет.")
-        except TimeoutException:
-            print("Всплывающая подсказка не появилась вовремя.")
-
-        except NoSuchElementException:
-            print("Всплывающая подсказка не найдена.")
 
     def red_line_user_name(self):
         return self.element_is_visible(red_line_need_enter_user_name)

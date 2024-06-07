@@ -9,7 +9,8 @@ class BasePage:
         self.browser = browser
 
     def find(self, args):
-        return self.browser.find_element(*args)
+        with allure.step('Find element'):
+            return self.browser.find_element(*args)
 
     def enter_text(self, text, *locator):
         element = self.find(*locator)
