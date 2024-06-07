@@ -9,7 +9,7 @@ import allure
 txt_username_locator = (By.XPATH, "//input[@type='text']")
 txt_password_locator = (By.XPATH, "//input[@type='password']")
 btn_submit_locator = (By.XPATH, "//span[@class='dx-button-text']")
-url = 'http://192.168.102.120:8080/login?returnUrl=%2F'
+url = 'http://192.168.102.120:8080/login'
 
 # сообщение об ошибке
 wrong_user_name_or_password_message_locator = (By.XPATH, "//div[contains(text(),'Stellen Sie sicher, dass Benutzername und Passwort korrekt angegeben wurden')]")
