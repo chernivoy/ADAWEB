@@ -3,6 +3,13 @@ import pytest
 import os
 import shutil
 
+from pages.login_page import LoginPage
+
+USER_NAME = 'Anna'
+INVALID_USER_NAME = 'Anna1'
+PASSWORD = '12345'
+INVALID_PASSWORD = '12346'
+
 
 @pytest.fixture()
 def browser():
@@ -10,6 +17,18 @@ def browser():
     chrome_browser.implicitly_wait(10)
     chrome_browser.maximize_window()
     return chrome_browser
+
+
+@pytest.fixture()
+def login(browser):
+    url = 'http://192.168.102.120:8080/login'
+    browser.get(url)
+
+    login_page = LoginPage(browser)
+    login_page.enter_username(USER_NAME)
+    login_page.enter_password(PASSWORD)
+    login_page.submit_button_click()
+    return browser
 
 
 # @pytest.fixture(scope="session")
