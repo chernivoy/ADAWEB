@@ -45,3 +45,7 @@ class BasePage:
     def click(self, *locator):
         element = self.find(*locator)
         element.click()
+
+    def get_text(self, locator):
+        element = self.find_element(locator)
+        return element.text
