@@ -15,7 +15,12 @@ btn_conf_locator = (By.XPATH, "//div[@role='button' and @aria-label ='Konfigurat
 btn_cansel_locator = (By.XPATH, "//div[@role='button' and @aria-label ='Abbrechen' and contains(@class, 'dx-widget dx-button dx-button-mode-outlined dx-button-normal dx-button-has-text')]")
 
 lbl_Dashboard = (By.XPATH, "//p[contains(text(), 'Dashboard')]")
-area_my_tasks = (By.CSS_SELECTOR, "ada-sub-category-button#scbMyTasks")
+
+area_my_tasks_locator = (By.CSS_SELECTOR, "ada-sub-category-button#scbMyTasks")
+area_given_tasks_locator = (By.CSS_SELECTOR, "ada-sub-category-button#scbGivenTasks")
+area_created_tasks_locator = (By.CSS_SELECTOR, "ada-sub-category-button#scbCreatedTasks")
+area_my_watched_tasks_locator = (By.CSS_SELECTOR, "ada-sub-category-button#scbWatchedTasks")
+area_my_favorite_tasks_locator = (By.CSS_SELECTOR, "ada-category-button#cbFavorites")
 
 
 class DashboardPage(BasePage):
@@ -38,13 +43,13 @@ class DashboardPage(BasePage):
             return self.label_dashboard().is_displayed()
 
     def area_my_tasks_click(self):
-        return self.click(area_my_tasks)
+        return self.click(area_my_tasks_locator)
 
     def my_tasks_count(self):
         with allure.step(f'Check my tasks count'):
             try:
                 # Ищем контейнер с id="scbMyTasks"
-                container = self.browser.find_element(By.CSS_SELECTOR, "ada-sub-category-button#scbMyTasks")
+                container = self.find(area_my_tasks_locator)
             except NoSuchElementException:
                 print("Контейнер с id='scbMyTasks' не найден на странице")
             try:
@@ -63,7 +68,7 @@ class DashboardPage(BasePage):
         with allure.step(f'Check my given tasks count'):
             try:
                 # Ищем контейнер с id="scbGivenTasks"
-                container = self.browser.find_element(By.CSS_SELECTOR, "ada-sub-category-button#scbGivenTasks")
+                container = self.find(area_given_tasks_locator)
             except NoSuchElementException:
                 print("Контейнер с id='scbGivenTasks' не найден на странице")
             try:
@@ -82,7 +87,7 @@ class DashboardPage(BasePage):
         with allure.step(f'Check my created tasks count'):
             try:
                 # Ищем контейнер с id="scbCreatedTasks"
-                container = self.browser.find_element(By.CSS_SELECTOR, "ada-sub-category-button#scbCreatedTasks")
+                container = self.find(area_created_tasks_locator)
             except NoSuchElementException:
                 print("Контейнер с id='scbCreatedTasks' не найден на странице")
             try:
@@ -101,7 +106,7 @@ class DashboardPage(BasePage):
         with allure.step(f'Check my watched tasks count'):
             try:
                 # Ищем контейнер с id="scbWatchedTasks"
-                container = self.browser.find_element(By.CSS_SELECTOR, "ada-sub-category-button#scbWatchedTasks")
+                container = self.find(area_my_watched_tasks_locator)
             except NoSuchElementException:
                 print("Контейнер с id='scbWatchedTasks' не найден на странице")
             try:
@@ -120,7 +125,7 @@ class DashboardPage(BasePage):
         with allure.step(f'Check my favorite tasks count'):
             try:
                 # Ищем контейнер с id="cbFavorites"
-                container = self.browser.find_element(By.CSS_SELECTOR, "ada-category-button#cbFavorites")
+                container = self.find(area_my_favorite_tasks_locator)
             except NoSuchElementException:
                 print("Контейнер с id='cbFavorites' не найден на странице")
             try:
@@ -131,6 +136,7 @@ class DashboardPage(BasePage):
             except NoSuchElementException:
                 print("Элемент с количеством задач не найден внутри контейнера")
                 # Печатаем количество задач (для отладки)
-            print(f"Count of watched tasks : {task_count}")
+            with allure.step(f'Count of favorite tasks : {task_count}'):
+                print(f"Count of favorite tasks : {task_count}")
             assert task_count > 0
             return task_count

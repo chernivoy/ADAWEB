@@ -11,8 +11,8 @@ PASSWORD = '12345'
 
 
 @allure.feature('Dashboard')
-@allure.story('Check ')
-def test_login_check_my_tasks(login):
+@allure.story('Check count tasks on Dashboard page')
+def test_check_my_tasks(login):
     dashboard_page = DashboardPage(login)
     dashboard_page.label_dashboard_is_displayed()
     dashboard_page.label_dashboard_click()
