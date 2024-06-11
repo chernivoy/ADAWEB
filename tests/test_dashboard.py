@@ -1,13 +1,9 @@
 from selenium.webdriver.common.by import By
 from pages.dashboard_page import DashboardPage
+import pytest
 from selenium import webdriver
 from time import sleep
 import allure
-
-from pages.login_page import LoginPage
-
-USER_NAME = 'Anna'
-PASSWORD = '12345'
 
 
 @allure.feature('Dashboard')
@@ -24,3 +20,6 @@ def test_check_my_tasks(login):
     sleep(2)
     dashboard_page.area_my_tasks_click()
     sleep(1)
+
+
+
