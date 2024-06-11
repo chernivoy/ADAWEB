@@ -12,6 +12,9 @@ class BasePage:
         with allure.step('Find element'):
             return self.browser.find_element(*args)
 
+    def find_elements(self, locator):
+        return WebDriverWait(self.driver, self.timeout).until(EC.presence_of_all_elements_located(locator))
+
     def enter_text(self, text, *locator):
         element = self.find(*locator)
         element.clear()
@@ -49,3 +52,8 @@ class BasePage:
     def get_text(self, locator):
         element = self.find_element(locator)
         return element.text
+
+    # def enter_text(self, locator, text):
+    #     element = self.find_element(locator)
+    #     element.clear()
+    #     element.send_keys(text)
