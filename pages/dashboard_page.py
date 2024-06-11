@@ -45,6 +45,9 @@ class DashboardPage(BasePage):
     def area_my_tasks_click(self):
         return self.click(area_my_tasks_locator)
 
+    def area_my_favorite_click(self):
+        return self.click(area_my_favorite_tasks_locator)
+
     def my_tasks_count(self):
         with allure.step(f'Check my tasks count'):
             try:
