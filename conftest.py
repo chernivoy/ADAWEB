@@ -20,7 +20,19 @@ def browser():
 
 
 @pytest.fixture()
+def browser_doc():
+    chrome_browser = webdriver.Chrome()
+    chrome_browser.implicitly_wait(10)
+    chrome_browser.maximize_window()
+    return chrome_browser
+
+
+@pytest.fixture()
 def login(browser):
+    """
+    Фикстура для авторизации пользователя.
+    Возвращает залогиненного пользователя.
+    """
     url = 'http://192.168.102.120:8080/login'
     browser.get(url)
 
