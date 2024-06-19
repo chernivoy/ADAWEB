@@ -53,7 +53,4 @@ class BasePage:
         element = self.find_element(locator)
         return element.text
 
-    # def enter_text(self, locator, text):
-    #     element = self.find_element(locator)
-    #     element.clear()
-    #     element.send_keys(text)
+
