@@ -63,7 +63,8 @@ class DashboardPage(BasePage):
             except NoSuchElementException:
                 print("Элемент с количеством задач не найден внутри контейнера")
                 # Печатаем количество задач (для отладки)
-            print(f"Count of my tasks : {task_count}")
+            with allure.step(f'Count of my tasks : {task_count}'):
+                print(f"Count of my tasks : {task_count}")
             assert task_count > 0
             return task_count
 
@@ -82,7 +83,8 @@ class DashboardPage(BasePage):
             except NoSuchElementException:
                 print("Элемент с количеством задач не найден внутри контейнера")
                 # Печатаем количество задач (для отладки)
-            print(f"Count of given tasks : {task_count}")
+            with allure.step(f'Count of given tasks : {task_count}'):
+                print(f"Count of given tasks : {task_count}")
             assert task_count > 0
             return task_count
 
@@ -101,7 +103,8 @@ class DashboardPage(BasePage):
             except NoSuchElementException:
                 print("Элемент с количеством задач не найден внутри контейнера")
                 # Печатаем количество задач (для отладки)
-            print(f"Count of created tasks : {task_count}")
+            with allure.step(f'Count of created tasks : {task_count}'):
+                print(f"Count of created tasks : {task_count}")
             assert task_count > 0
             return task_count
 
@@ -120,7 +123,8 @@ class DashboardPage(BasePage):
             except NoSuchElementException:
                 print("Элемент с количеством задач не найден внутри контейнера")
                 # Печатаем количество задач (для отладки)
-            print(f"Count of watched tasks : {task_count}")
+            with allure.step(f'Count of watched tasks : {task_count}'):
+                print(f"Count of watched tasks : {task_count}")
             assert task_count > 0
             return task_count
 

@@ -7,7 +7,7 @@ from pages.login_page import LoginPage
 
 USER_NAME = 'Anna'
 INVALID_USER_NAME = 'Anna1'
-PASSWORD = '12345'
+PASSWORD = '12345678'
 INVALID_PASSWORD = '12346'
 
 
