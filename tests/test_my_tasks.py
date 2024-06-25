@@ -10,6 +10,7 @@ task_name = 'WEB TASK 0001'
 task_status = 'Aufgabe angenommen'
 task_class = 'Web_class'
 task_sub_class = 'Web_sub_class'
+task_priority_value = 'Erster'
 
 
 @allure.feature('MyTasksPage')
@@ -33,9 +34,14 @@ def test_my_tasks(login):
     assert task_class == task_page.task_vub_class_value(), "Class is not equal"
     assert task_sub_class == task_page.task_vub_sub_class_value(), 'Sub Class is not equal'
 
-    task_page.priority_cmb_select_value(task_page.cmb_priority_value)
+    assert task_page.combobox_priority_select_value_by_index(1) == task_priority_value, 'Element by index is not equal'
 
     sleep(5)
+
+    # task_page.combobox_priority_find_text(task_page.cmb_priority_value)
+    # task_page.priority_cmb_select_value(task_page.cmb_priority_value)
+
+
 
 
 
