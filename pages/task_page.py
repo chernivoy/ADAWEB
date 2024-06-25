@@ -14,9 +14,8 @@ task_vub_sub_class_locator = (By.XPATH, "//dx-text-box[@id='tbVubSubClass']//inp
 btn_expand_locator = (By.XPATH, "//div[@id='btnExpander']")
 cmb_authority_locator = (By.XPATH, "//ada-select-box[@id='sbAuthority']")
 
-temp = (By.XPATH, "//ada-select-box[@id='sbAuthority']")
 
-temp2 = (By.XPATH, "//div[contains(@class, 'dx-item dx-list-item')]")
+cmb_dx_item = (By.XPATH, "//div[contains(@class, 'dx-item dx-list-item')]")
 
 
 class TaskPage(BasePage):
@@ -45,23 +44,36 @@ class TaskPage(BasePage):
     def combobox_priority_click(self):
         return self.click(cmb_authority_locator)
 
-    def combobox_count(self):
-        return self.get_elements_values_by_xpath(temp)
+    def combobox_priority_select_value(self, value):
+        return ComboBox(self.browser).select_by_value(cmb_authority_locator, value)
+
+    def combobox_priority_select_value_by_index(self, index):
+        return ComboBox(self.browser).select_by_index(cmb_authority_locator, index)
+
+    def combobox_priority_find_value_by_text(self, text):
+        return ComboBox(self.browser).find_text(cmb_authority_locator, cmb_dx_item, text)
 
     def get_elements_values(self):
-        element = self.find(temp)
-        items = element.find_elements(*temp2)
+        element = self.find(cmb_authority_locator)
+        items = element.find_elements(*cmb_dx_item)
         return [item.text for item in items]
 
-    def find_text_in_combobox(self, text):
-        element = self.find(temp)
-        items = element.find_elements(*temp2)
-        matching_items = [item for item in items if item.text in text]
-        return [item.text for item in matching_items]
 
-    def priority_cmb_select_value(self, value):
-        print(f'cmb has {ComboBox(self.browser).select_by_text(cmb_authority_locator, value)}')
-        return ComboBox(self.browser).select_by_text(cmb_authority_locator, value)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # def cmb_priority_validate_selected_item(self, value):
     #     cmb_value = self.priority_cmb_select_value(value)
