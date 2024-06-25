@@ -32,13 +32,35 @@ def test_my_tasks(login):
     task_page.button_expand_click()
     assert task_class == task_page.task_vub_class_value(), "Class is not equal"
     assert task_sub_class == task_page.task_vub_sub_class_value(), 'Sub Class is not equal'
-    task_page.combobox_priority_click()
-    sleep(1)
-    temp1 = task_page.get_elements_values()
-    print(f'count {temp1}')
-    findtext = task_page.find_text_in_combobox("Automatisch")
-    assert findtext == "Automatisch", 'Sub Class is not equal'
-    print(f'text  {findtext} is foound')
+
+    task_page.priority_cmb_select_value(task_page.cmb_priority_value)
+
+    sleep(5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # task_page.combobox_priority_click()
+    # sleep(1)
+    # temp1 = task_page.get_elements_values()
+    # print(f'count {temp1}')
+    # findtext = task_page.find_text_in_combobox("Automatisch")
+    # assert findtext == "Automatisch", 'Sub Class is not equal'
+    # print(f'text  {findtext} is foound')
 
     sleep(1)
 

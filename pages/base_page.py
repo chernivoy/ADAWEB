@@ -35,7 +35,7 @@ class BasePage:
         element.clear()
         element.send_keys(text)
 
-    def element_is_visible(self, locator, timeout=10):
+    def element_is_visible(self, locator, timeout=2):
         with allure.step('Check visibility element on the form'):
             try:
                 return WebDriverWait(self.browser, timeout).until(EC.visibility_of_element_located(locator))
