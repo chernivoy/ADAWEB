@@ -27,6 +27,9 @@ class BasePage:
     def find_elements(self, locator):
         return WebDriverWait(self.browser, self.timeout).until(EC.presence_of_all_elements_located(locator))
 
+    def find_elements_2(self, locator):
+        return WebDriverWait(self.browser, self.timeout).until(EC.presence_of_all_elements_located(*locator))
+
     def enter_text(self, text, *locator):
         element = self.find(*locator)
         element.clear()
@@ -68,5 +71,7 @@ class BasePage:
             return value_txt_box
         except NoSuchElementException:
             return None
+
+
 
 
