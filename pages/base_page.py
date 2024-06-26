@@ -16,7 +16,7 @@ class BasePage:
     def find(self, locator):
         with allure.step('Find element'):
             try:
-                element = WebDriverWait(self.browser, 10).until(
+                element = WebDriverWait(self.browser, 2).until(
                     EC.presence_of_element_located(locator)
                 )
                 return element
@@ -45,7 +45,7 @@ class BasePage:
     def elements_are_visible(self, locator, timeout=10):
         return WebDriverWait(self.browser, timeout).until(EC.visibility_of_all_elements_located(locator))
 
-    def element_is_present(self, locator, timeout=10):
+    def element_is_present(self, locator, timeout=2):
         return WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located(locator))
 
     def elements_are_present(self, locator, timeout=10):
