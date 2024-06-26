@@ -1,4 +1,5 @@
 import allure
+from selenium.common import NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -68,6 +69,29 @@ class ComboBox(BasePage):
             finally:
                 element.click()  # Закрываем выпадающий список в любом случае
 
-    # def validate_by_text(self, locator, value):
-    #     selected_value = self.browser.find_element(By.XPATH, locator).text
-    #     assert selected_value == value
+    def validate(self, locator, value):
+        with allure.step('Validate data in combobox by text'):
+            try:
+                element = self.find(locator)
+                element.click()
+                element.click()
+
+                items_xpath = "//div[contains(@class, 'dx-list-item-selected')]"
+                items = element.find_elements(By.XPATH, items_xpath)
+
+                if items:
+                    selected_item = items[0].text
+                    if value == selected_item:
+                        with allure.step(f'Element "{selected_item}" was detected as selected in combobox'):
+                            return selected_item
+                    else:
+                        with allure.step(f'Element "{selected_item}" was not detected as selected in combobox'):
+                            return None
+                else:
+                    with allure.step('No selected item found in combobox'):
+                        return None
+            except NoSuchElementException:
+                with allure.step('Element was not found on the page'):
+                    return None
+
+
