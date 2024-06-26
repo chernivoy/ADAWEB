@@ -14,7 +14,7 @@ INVALID_PASSWORD = '12346'
 @pytest.fixture()
 def browser():
     chrome_browser = webdriver.Chrome()
-    chrome_browser.implicitly_wait(10)
+    chrome_browser.implicitly_wait(2)
     chrome_browser.maximize_window()
     return chrome_browser
 
@@ -22,7 +22,7 @@ def browser():
 @pytest.fixture()
 def browser_doc():
     chrome_browser = webdriver.Chrome()
-    chrome_browser.implicitly_wait(10)
+    chrome_browser.implicitly_wait(2)
     chrome_browser.maximize_window()
     return chrome_browser
 
