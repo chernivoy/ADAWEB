@@ -51,7 +51,7 @@ class TaskPage(BasePage):
         return self.text_box_get_value(task_vub_sub_class_locator)
 
     @property
-    def task_short_name_value(self):
+    def task_short_name(self):
         return self.text_box_get_value(task_short_name_locator)
 
     @property
@@ -78,6 +78,7 @@ class TaskPage(BasePage):
     def combobox_authority_validate(self, value):
         return ComboBox(self.browser).validate(cmb_authority_locator, value)
 
+    # priority
     def combobox_priority_click(self):
         return self.click(cmb_priority_locator)
 
@@ -89,6 +90,9 @@ class TaskPage(BasePage):
 
     def combobox_priority_find_value_by_text(self, text):
         return ComboBox(self.browser).find_text(cmb_priority_locator, cmb_dx_item, text)
+
+    def combobox_priority_validate(self, value):
+        return ComboBox(self.browser).validate(cmb_priority_locator, value)
 
     #significance
     def combobox_significance_click(self):
@@ -102,6 +106,9 @@ class TaskPage(BasePage):
 
     def combobox_significance_find_value_by_text(self, text):
         return ComboBox(self.browser).find_text(cmb_significance_locator, cmb_dx_item, text)
+
+    def combobox_significance_validate(self, value):
+        return ComboBox(self.browser).validate(cmb_significance_locator, value)
 
     def get_elements_values(self):
         element = self.find(cmb_authority_locator)
