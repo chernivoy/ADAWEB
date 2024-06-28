@@ -6,18 +6,20 @@ from selenium import webdriver
 from time import sleep
 import allure
 
-task_name = 'WEB TASK 0001'
-task_status = 'Aufgabe angenommen'
-task_class = 'Web_class'
-task_sub_class = 'Web_sub_class'
-task_authority = 'Bestätigung'
-task_entry_user_name = 'Goldun, Anna'
-task_executor = 'Goldun, Anna'
-task_priority = 'Mittel'
-task_significance = 'hoch'
-task_short_name = 'w_cw_s_c'
-task_number = 'TAS0000372'
-task_remark = 'Task for web app/ Dont touch please!'
+task_data = {
+    'name': 'WEB TASK 0001',
+    'status': 'Aufgabe angenommen',
+    'class': 'Web_class',
+    'sub_class': 'Web_sub_class',
+    'authority': 'Bestätigung',
+    'entry_user_name': 'Goldun, Anna',
+    'executor': 'Goldun, Anna',
+    'priority': 'sehr niedrig',
+    'significance': 'hoch',
+    'short_name': 'w_cw_s_c',
+    'number': 'TAS0000372',
+    'remark': 'Task for web app/ Dont touch please!'
+}
 
 
 @allure.feature('MyTasksPage')
@@ -31,26 +33,26 @@ def test_my_tasks(login):
     # my task page
     my_tasks_page = MyTasksPage(login)
     my_tasks_page.label_data_grid_locator_is_visible()
-    my_tasks_page.search_field_enter_text(task_name)
+    my_tasks_page.search_field_enter_text(task_data['name'])
     my_tasks_page.label_data_grid_locator_is_visible()
-    my_tasks_page.table_contains_text(task_name)
+    my_tasks_page.table_contains_text(task_data['name'])
     # task page
     task_page = TaskPage(login)
     task_page.button_expand_click()
-    assert task_name == task_page.task_name_value(), "Name is not equal"
-    assert task_status == task_page.task_status_value(), "Status is not equal Aufgabe angenommen"
-    assert task_class == task_page.task_vub_class_value(), "Class is not equal"
-    assert task_sub_class == task_page.task_vub_sub_class_value(), 'Sub Class is not equal'
-    assert task_entry_user_name == task_page.task_entry_user_value(), 'User Name is not equal'
-    assert task_executor == task_page.task_executor_value(), 'Executor is not equal'
-    assert task_short_name == task_page.task_short_name_value, 'Short name is not equal'
-    assert task_number == task_page.task_number, 'Number is not equal'
-    assert task_remark == task_page.task_remark, 'Remark is not equal'
-    assert task_authority == task_page.combobox_authority_validate(task_authority), 'Authority is not equal'
 
-    # task_page.combobox_priority_find_text(task_page.cmb_priority_value)
-    # task_page.priority_cmb_select_value(task_page.cmb_priority_value)
-    # assert task_page.combobox_priority_select_value_by_index(1) == task_priority_value, 'Element by index is not equal'
+    assert task_data['name'] == task_page.task_name_value(), "Name is not equal"
+    assert task_data['status'] == task_page.task_status_value(), "Status is not equal"
+    assert task_data['class'] == task_page.task_vub_class_value(), "Class is not equal"
+    assert task_data['sub_class'] == task_page.task_vub_sub_class_value(), "Sub Class is not equal"
+    assert task_data['entry_user_name'] == task_page.task_entry_user_value(), "User Name is not equal"
+    assert task_data['executor'] == task_page.task_executor_value(), "Executor is not equal"
+    assert task_data['short_name'] == task_page.task_short_name, "Short name is not equal"
+    assert task_data['number'] == task_page.task_number, "Number is not equal"
+    assert task_data['remark'] == task_page.task_remark, "Remark is not equal"
+    assert task_data['authority'] == task_page.combobox_authority_validate(task_data['authority']), "Authority is not equal"
+    assert task_data['priority'] == task_page.combobox_priority_validate(task_data['priority']), "Priority is not equal"
+    assert task_data['significance'] == task_page.combobox_significance_validate(task_data['significance']), "Significance is not equal"
+
 
 
 
