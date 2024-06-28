@@ -70,28 +70,46 @@ class ComboBox(BasePage):
                 element.click()  # Закрываем выпадающий список в любом случае
 
     def validate(self, locator, value):
-        with allure.step('Validate data in combobox by text'):
-            try:
-                element = self.find(locator)
-                element.click()
-                element.click()
+        try:
+            # Найти ada-select-box по указанному локатору
+            ada_select_box = self.browser.find_element(*locator)
+            ada_select_box_id = ada_select_box.get_attribute('id')
 
-                items_xpath = "//div[contains(@class, 'dx-list-item-selected')]"
-                items = element.find_elements(By.XPATH, items_xpath)
+            # Найти dx-select-box внутри ada-select-box
+            dx_select_box = ada_select_box.find_element(By.XPATH, ".//dx-select-box")
 
-                if items:
-                    selected_item = items[0].text
-                    if value == selected_item:
-                        with allure.step(f'Element "{selected_item}" was detected as selected in combobox'):
-                            return selected_item
-                    else:
-                        with allure.step(f'Element "{selected_item}" was not detected as selected in combobox'):
-                            return None
-                else:
-                    with allure.step('No selected item found in combobox'):
-                        return None
-            except NoSuchElementException:
-                with allure.step('Element was not found on the page'):
-                    return None
+            # нажать два раза
+            dx_select_box.click()
+            dx_select_box.click()
+
+            # Найти все элементы с классом "dx-item dx-list-item" внутри dx-select-box
+            items = dx_select_box.find_elements(By.XPATH, ".//div[contains(@class, 'dx-item dx-list-item')]")
+
+            selected_item_text = None
+
+            parent_id = ada_select_box_id
+            for item in items:
+                if item.get_attribute("aria-selected") == "true":
+                    parent_element = item.find_element(By.XPATH, f"ancestor::ada-select-box[@id='{parent_id}']")
+                    if parent_element:
+                        selected_item_text = self.browser.execute_script("""
+                                        var parent_id = arguments[0];
+                                        var selectedItem = document.querySelector(`#${parent_id} div[aria-selected='true'] .dx-item-content.dx-list-item-content`);
+                                        return selectedItem ? selectedItem.textContent.trim() : null;
+                                    """, parent_id)  # Удаление лишних пробелов
+                        break
+
+            # Проверка, что значение selected_item_text равно ожидаемому значению value
+            if selected_item_text == value:
+                print(f"Selected value '{selected_item_text}' equal '{value}'")
+                return selected_item_text
+            else:
+                print(f"Selected value '{selected_item_text}' was not equal '{value}'")
+                return selected_item_text
+
+        except NoSuchElementException as e:
+            print(f"Элемент не найден или не удалось выполнить действие: {e}")
+            return None
+
 
 
