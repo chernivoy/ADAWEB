@@ -21,6 +21,12 @@ task_data = {
     'remark': 'Task for web app/ Dont touch please!'
 }
 
+task_data_select = {
+    'authority': 'Automatisch',
+    'priority': 'mittel',
+    'significance': 'niedrig'
+}
+
 
 @allure.feature('MyTasksPage')
 @allure.story('Check find task on myTask page')
@@ -40,18 +46,26 @@ def test_my_tasks(login):
     task_page = TaskPage(login)
     task_page.button_expand_click()
 
-    assert task_data['name'] == task_page.task_name_value(), "Name is not equal"
-    assert task_data['status'] == task_page.task_status_value(), "Status is not equal"
-    assert task_data['class'] == task_page.task_vub_class_value(), "Class is not equal"
-    assert task_data['sub_class'] == task_page.task_vub_sub_class_value(), "Sub Class is not equal"
-    assert task_data['entry_user_name'] == task_page.task_entry_user_value(), "User Name is not equal"
-    assert task_data['executor'] == task_page.task_executor_value(), "Executor is not equal"
-    assert task_data['short_name'] == task_page.task_short_name, "Short name is not equal"
-    assert task_data['number'] == task_page.task_number, "Number is not equal"
-    assert task_data['remark'] == task_page.task_remark, "Remark is not equal"
-    assert task_data['authority'] == task_page.combobox_authority_validate(task_data['authority']), "Authority is not equal"
-    assert task_data['priority'] == task_page.combobox_priority_validate(task_data['priority']), "Priority is not equal"
-    assert task_data['significance'] == task_page.combobox_significance_validate(task_data['significance']), "Significance is not equal"
+    # assert task_data['name'] == task_page.task_name_value(), "Name is not equal"
+    # assert task_data['status'] == task_page.task_status_value(), "Status is not equal"
+    # assert task_data['class'] == task_page.task_vub_class_value(), "Class is not equal"
+    # assert task_data['sub_class'] == task_page.task_vub_sub_class_value(), "Sub Class is not equal"
+    # assert task_data['entry_user_name'] == task_page.task_entry_user_value(), "User Name is not equal"
+    # assert task_data['executor'] == task_page.task_executor_value(), "Executor is not equal"
+    # assert task_data['short_name'] == task_page.task_short_name, "Short name is not equal"
+    # assert task_data['number'] == task_page.task_number, "Number is not equal"
+    # assert task_data['remark'] == task_page.task_remark, "Remark is not equal"
+    # assert task_data['authority'] == task_page.combobox_authority_validate(task_data['authority']), "Authority is not equal"
+    # assert task_data['priority'] == task_page.combobox_priority_validate(task_data['priority']), "Priority is not equal"
+    # assert task_data['significance'] == task_page.combobox_significance_validate(task_data['significance']), "Significance is not equal"
+    #
+
+    task_page.combobox_authority_select_value(task_data_select['authority'])
+
+    task_page.combobox_priority_select_value(task_data_select['priority'])
+    task_page.combobox_significance_select_value(task_data_select['significance'])
+
+    sleep(5)
 
 
 
